@@ -58,7 +58,7 @@ def get_match_info(api_url, civilizations_file):
     print("API request failed")
     return {}
 
-api_url = "https://data.aoe2companion.com/api/matches?profile_ids=208269&search=&leaderboard_ids=&page=1"
+api_url = "https://data.aoe2companion.com/api/matches?profile_ids=6446904&search=&leaderboard_ids=&page=1"
 civilizations_file = "myapp/civilizationsnew.json"
 match_info = get_match_info(api_url, civilizations_file)
 
@@ -67,11 +67,9 @@ started_datetime = datetime.strptime(match_info['started'], '%Y-%m-%dT%H:%M:%S.%
 started_formatted = started_datetime.strftime('%Y-%m-%d %H:%M:%S')
 
 if match_info:
-  print(f"==================<br><b>Date:</b> {started_formatted} <br><b>Map:</b> {match_info['mapName']}<br>==================")
-  print(f"<br><br>")
-  print(f"<b>{match_info['player1Name']} ({match_info['player1Rating']}</b>) <br> {match_info['player1CivName']} <br> {match_info['player1CivDescription']}")
-  print(f"<br><br>==================<br><br>")
-  print(f"<b>{match_info['player2Name']} ({match_info['player2Rating']}</b>) <br> {match_info['player2CivName']} <br> {match_info['player2CivDescription']}<br>")
+  print(f"<b>{match_info['player1Name']} </b><br> {match_info['player1CivName']} <br> {match_info['player1CivDescription']}") #({match_info['player1Rating']})
+  print(f"<br>======================================================<br>")
+  print(f"<b>{match_info['player2Name']} </b><br> {match_info['player2CivName']} <br> {match_info['player2CivDescription']}<br>") #({match_info['player2Rating']}</b>) 
 
 else:
   print("No match information found.")
