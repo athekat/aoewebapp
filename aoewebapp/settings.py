@@ -27,7 +27,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://aoewebapp.alan.com.ar/']
+CSRF_TRUSTED_ORIGINS = ['https://aoewebapp-production.up.railway.app/']
 
 
 # Application definition
