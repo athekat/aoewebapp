@@ -5,99 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   {% load static %}
-  <title>Age of Carpincho Assist</title>
+  <title>AOE II DE - Current 1v1 Match</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">  
+  <body style="background-image: url('{% static '\image\bg_aoe2_hd_paper.jpg' %}');">
 </head>
 <body>
-  <header class="bg-dark text-light p-3">
+  <header class="bg-dark text-light p-2">
     <div class="container d-flex justify-content-between align-items-center">
-<h1 class="display-4 text-start">Age of Carpincho Assist</h1>
+<h1 class="display-4 text-start">Current 1v1 Match</h1>
       <img src="{% static '\image\10500.gif' %}" style=width:85px;height:85px alt="Mangudai logo" class="img-fluid">
       
     </div>
   </header>
-  <body>
-    <main class="container mt-4">
+    <main class="mx-auto mt-4" style="width: 80%">
         <div class="row">
-            <div class="col-md-6 text-center">
-                <select id="myDropdown" class="form-select btn btn-secondary"  style="--bs-btn-padding-y: .75rem; --bs-btn-padding-x: 3.5rem; --bs-btn-font-size: 1.25rem;">
-                    <option value="" disabled selected>Select a build order</option>
-                    <option value="option1">Scout Rush</option>
-                    <option value="option2">Archer Rush</option>
-                    <option value="option3">Phosphoru's FC</option>
-                </select>
-
-                <div id="dropdownContent" class="mt-3">
-                    <p id="option1Content" class="text-start" style="display: none; font-size: xx-large;">6 sheep <br>
-                        789 wood<br>
-                        10-11 boar<br>
-                        12 -> 2houses -> berries<br>
-                        13 14 15 mill <br>
-                        16 17 boar/sheep<br>
-                        18 19 20 second lumber<br>
-                        <br>
-                        pasar 10 food + 10 wood<br>
-                        <br>
-                        21-28 farms</p>
-                    <p id="option2Content" class="text-start" style="display: none; font-size: x-large;">
-                        6 sheep<br>
-                        7 8 9 10 wood<br>
-                        11 boar<br>
-                        12 -> 2houses -> berries<br>
-                        13 14 15 mill <br>
-                        16 17 boar/sheep<br>
-                        18 19 20 21 second lumber<br>
-                        <br>
-                        pasando 7 food + 10 wood + 3 gold (sacar de comida)<br>
-                        <br>
-                        Feudal:<br>
-                        Double Bit axe + 2 archery range (attack w/ 8 arch)<br>
-                        Blacksmith (Fletching)<br>
-                        No horse collar<br>
-                        Yes Gold Mining<br>
-                        <br>
-                        22-25 Gold<br>
-                        26-33 Sheeps cambiar por farm/straggler. <br>
-                        34 wood<br>
-                        35 gold<br>
-                        <br>
-                        Up to Castle<br>
-                        </p>
-                    <p id="option3Content" class="text-start" style="display: none; font-size: x-large;">6 food<br>
-                        7 boar<br>
-                        ir trayendo deer<br>
-                        2 casas en madera<br>
-                        3 wood<br>
-                        15 en berries (6 en total)<br>
-                        desde pop 20 ir mandando a piedra (6 total)<br>
-                        <br>
-                        early boars and deer<br>
-                        <br>
-                        pasar con 6 a piedra (total 24 vils)<br>
-                        <br>
-                        los de comida berries construyen market y herreria (no vil)<br>
-                        <br>
-                        2 vils forward: siege workshop + monastery<br><br>
-                        castle age<br>
-                        enemy goes cav/siege ==> monks+santitiy+redemption<br>
-                        enemy goes redemption monks ==> monks+atonement<br>
-                        <br>
-                        wall petard</p>
-                </div>
-            </div>
-            <div class="col-md-6 text-center">
                 <form method="post">
                     {% csrf_token %}
-                    <button class="btn btn-secondary col-md-12" style="--bs-btn-padding-y: .75rem; --bs-btn-padding-x: 4.5rem; --bs-btn-font-size: 1.25rem;">Get Current Match</button>
+                    <div class="mb-3">
+                        <label for="profile_id" class="form-label fw-bold">Enter Profile ID:</label>
+                        <input type="number" class="form-control" id="profile_id" name="profile_id" placeholder="e.g., 196240">
+                    </div>
+                    <button class="btn btn-dark col-md-12" style="--bs-btn-padding-y: .75rem; --bs-btn-padding-x: 4.5rem; --bs-btn-font-size: 1.25rem;">Get Current Match</button>
                 </form>
                 <br>
-                {% if output %}
-                    <p class="text-start">{{ output|safe }}</p>
+                {% if match_info %}
+                <div class="row mt-4 mx-auto">
+                    <div class="col-md-5 text-start" style="background-color: rgba(227,224,213, 0.9); box-shadow: 3px 3px #444444">
+                        <h3>{{ match_info.player1Name }} ({{ match_info.player1Rating }}) - {{ match_info.player1CivName }}</h3>
+                        <!-- <p class="fs-5">{{ match_info.player1CivName }}</p> -->
+                        <p class="fs-5">{{ match_info.player1CivDescription | safe }}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4 class="mt-3 fw-bold">{{ match_info.mapName }}</h4>
+                        <img src="{{ match_info.mapIcon }}" width="150rem" alt="">
+                    </div>
+                    <div class="col-md-5 text-start" style="background-color: rgba(227,224,213, 0.9); box-shadow: 3px 3px #444444">
+                        <h3>{{ match_info.player2Name }} ({{ match_info.player2Rating }}) - {{ match_info.player2CivName }}</h3>
+                        <!-- <p class="fs-5">{{ match_info.player2CivName }}</p> -->
+                        <p class="fs-5">{{ match_info.player2CivDescription | safe }}</p>
+                    </div>
+                </div>
+                {% elif output %}
+                <div class="row">
+                    <div class="col-md-12 text-start">
+                        <p>{{ output|safe }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <!-- <p>No match information found.</p> -->
+                    </div>
+                </div>
                 {% endif %}
-            </div> 
-        </div>
-
-    </main>
+            </main>
 </body>
-<script src="{% static 'js\buildorder.js' %}"></script>
 </html>
