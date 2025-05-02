@@ -26,12 +26,12 @@ SECRET_KEY = 'django-insecure-!q%+0g_ke_!1#!$9*yb1f)&5q4em#@z-x89_)^)1iow9v))cia
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'your-subdomain.up.railway.app',
+    'https://aoewebapp-production.up.railway.app',
     'aoewebapp.alan.com.ar',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://your-subdomain.up.railway.app',
+    'https://aoewebapp-production.up.railway.app',
     'https://aoewebapp.alan.com.ar'
 ]
 
