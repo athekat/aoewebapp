@@ -25,10 +25,15 @@ SECRET_KEY = 'django-insecure-!q%+0g_ke_!1#!$9*yb1f)&5q4em#@z-x89_)^)1iow9v))cia
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'your-subdomain.up.railway.app',
+    'aoewebapp.alan.com.ar',
+]
 
-CSRF_TRUSTED_ORIGINS = ['https://aoewebapp-production.up.railway.app/']
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://your-subdomain.up.railway.app',
+    'https://aoewebapp.alan.com.ar'
+]
 
 # Application definition
 
