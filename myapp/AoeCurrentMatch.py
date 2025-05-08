@@ -26,8 +26,14 @@ def get_match_info(api_url, civilizations_file, descriptions_url):
         if matches:
             most_recent_match = matches[0]
             map_name = most_recent_match.get('mapName')
+            match_status = most_recent_match.get("finished")
             map_icon = most_recent_match.get('mapImageUrl')
             players = most_recent_match.get('teams', [])
+
+            if match_status is None:
+                match_status_message = "Match is being played."
+            else:
+                match_status_message = f"Match finished @ {match_status}"
 
             if players and len(players) == 2 and len(players[0]['players']) == 1 and len(players[1]['players']) == 1:
                 player1 = players[0]['players'][0]
@@ -44,7 +50,6 @@ def get_match_info(api_url, civilizations_file, descriptions_url):
 
                 player1_description = civilization_descriptions.get(str(player1_civ_id), "Description not found.")
                 player2_description = civilization_descriptions.get(str(player2_civ_id), "Description not found.")
-
                 return {
                     'mapName': map_name,
                     'mapIcon': map_icon,
@@ -56,11 +61,12 @@ def get_match_info(api_url, civilizations_file, descriptions_url):
                     'player2Rating': player2['rating'],
                     'player2CivName': player2['civName'],
                     'player2CivDescription': player2_description,
+                    'match_status': match_status_message,
                 }
             else:
                 return {"error": "Could not extract player information."}
         else:
-            return {"error": "No matches found for this profile ID."}
+            return {"error": "No 1v1 matches found for this profile ID."}
     else:
         return {"error": f"API request failed with status code: {response.status_code}"}
 
@@ -73,7 +79,7 @@ def your_django_view(request):
     if request.method == 'POST':
         profile_id = request.POST.get('profile_id')
         if profile_id:
-            api_url = f"https://data.aoe2companion.com/api/matches?profile_ids={profile_id}&search=&leaderboard_ids=&page=1"
+            api_url = f"https://data.aoe2companion.com/api/matches?profile_ids={profile_id}&search=&leaderboard_ids=rm_1v1&page=1"
             match_data = get_match_info(api_url, civilizations_file, descriptions_url)
             if "error" in match_data:
                 output = match_data["error"]
