@@ -79,6 +79,7 @@ def your_django_view(request):
     if request.method == 'POST':
         profile_id = request.POST.get('profile_id')
         if profile_id:
+            print(f"Profile ID submitted: {profile_id}")
             api_url = f"https://data.aoe2companion.com/api/matches?profile_ids={profile_id}&search=&leaderboard_ids=rm_1v1&page=1"
             match_data = get_match_info(api_url, civilizations_file, descriptions_url)
             if "error" in match_data:
