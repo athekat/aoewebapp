@@ -27,13 +27,11 @@ SECRET_KEY = 'django-insecure-!q%+0g_ke_!1#!$9*yb1f)&5q4em#@z-x89_)^)1iow9v))cia
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'aoewebapp-production.up.railway.app',
-    'aoewebapp.alan.com.ar',
+    'aoewebapp-2gqr.onrender.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://aoewebapp-production.up.railway.app',
-    'https://aoewebapp.alan.com.ar'
+    'https://aoewebapp-2gqr.onrender.com',
 ]
 
 # Application definition
