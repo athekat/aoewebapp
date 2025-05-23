@@ -4,5 +4,8 @@ Deployed using Railway [here](https://aoewebapp-production.up.railway.app/). **E
 
 Now deployed using Render [here](https://aoewebapp-2gqr.onrender.com/).
 
+## To run locally
+1. Install requirements.txt
+2. Run 'manage.py runserver' using Python.
 
 ![imagen](https://github.com/user-attachments/assets/4546ea4a-96d8-4e6b-91cc-1cd0eb4fb8c0)
