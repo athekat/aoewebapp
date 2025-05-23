@@ -1,0 +1,19 @@
+
+.myBtn {
+  background: none;
+  border: none;
+  color: blue;
+  padding: 0;
+  font: inherit;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.myBtn:hover {
+  color: darkblue;
+}
+
+p {
+    font-size: 16px;
+}

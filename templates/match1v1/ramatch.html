@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block titulo %}1v1 Matches{% endblock titulo %}
+{% block seccion %}1v1 Matches{% endblock seccion %}
+{% block body %} 
+    <main class="mx-auto mt-4" style="width: 80%">
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="profile_id" class="form-label fw-bold">Enter Profile ID:</label>
+                <input type="number" class="form-control" id="profile_id" name="profile_id" placeholder="e.g., 196240">
+            </div>
+            <button class="btn btn-dark col-md-12" style="--bs-btn-padding-y: .75rem; --bs-btn-padding-x: 4.5rem; --bs-btn-font-size: 1.25rem;">Get Current Match</button>
+        </form>
+                <br>
+                {% if match_info %}
+                <div class="row mt-4 mx-auto">
+                    
+                    <p class="text-danger text-center">{{ match_info.error }}</p>
+
+                    <div class="col-md-5 text-start" style="background-color: rgba(227,224,213, 0.9); box-shadow: 3px 3px #444444">
+                        <div class="mb-3" style="border: thick solid; border-color: #e5e3d9 #e5e3d9 #e5e3d9 {{ match_info.player1color }}; padding-left: 1em;">
+                            <h3>{{ match_info.player1Name }} ({{ match_info.player1Rating }}) - {{ match_info.player1CivName }}</h3>
+                        </div>
+                        <p class="fs-5">{{ match_info.player1CivDescription | safe }}</p>
+
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4 class="mt-3 fw-bold">{{ match_info.mapName }}</h4>
+                        <img src="{{ match_info.mapIcon }}" width="150rem" alt="">
+                        <br>
+                        <h5 class= "text-center"> {{ match_info.match_status }}</h5>
+                    </div>
+                    <div class="col-md-5 text-start" style="background-color: rgba(227,224,213, 0.9); box-shadow: 3px 3px #444444">
+                        <div class="mb-3" style="border: thick solid; border-color: #e5e3d9 #e5e3d9 #e5e3d9 {{ match_info.player2color }}; padding-left: 1em;">
+                            <h3>{{ match_info.player2Name }} ({{ match_info.player2Rating }}) - {{ match_info.player2CivName }}</h3>
+                        </div>
+                        <p class="fs-5">{{ match_info.player2CivDescription | safe }}</p>
+
+                    </div>
+                </div>
+                {% elif output %}
+                <div class="row">
+                    <div class="col-md-12 text-start">
+                        <p>{{ output|safe }}aaa</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                    </div>
+                </div>
+                {% endif %}
+    </main>
+{% endblock body %}

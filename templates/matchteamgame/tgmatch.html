@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block titulo %}Team Game Matches{% endblock titulo %}
+{% block seccion %}Team Game Matches {% endblock seccion %}
+{% block body %} 
+<main class="mx-auto mt-4" style="width: 80%">
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="profile_id" class="form-label fw-bold">Enter Profile ID:</label>
+            <input type="number" class="form-control" id="profile_id" name="profile_id" placeholder="e.g., 196240">
+        </div>
+            <button class="btn btn-dark col-md-12" style="--bs-btn-padding-y: .75rem; --bs-btn-padding-x: 4.5rem; --bs-btn-font-size: 1.25rem;">Get Current Match</button>
+    </form>
+    <br>
+    {% if match_info %}
+        <div class="text-danger text-center mt-4">{{ match_info.error }}</div>
+
+        <div class="row mt-4 mx-auto">
+            <!-- Left Team -->
+            <div class="col-md-5" style="background-color: rgba(227,224,213, 0.9); box-shadow: 3px 3px #444;">
+                 {% for player in match_info.teams.0 %}
+                <div class="mb-3" style="border: thick solid; border-color: #e5e3d9 #e5e3d9 #e5e3d9 {{ player.colorHex }}; padding-left: 1em;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <h5 style="margin: 0;">{{ player.name }} ({{ player.rating }}) - {{ player.civName }}</h5>
+                        <button class="myBtn" onclick="toggleDescription(this)" style="margin-left: 1em;">Civ Info</button>
+                    </div>
+                <div class="civ-description d-none">
+                    <p>{{ player.description|safe }}</p>
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+
+             <div class="col-md-2 text-center">
+                <h4 class="fw-bold mt-3">{{ match_info.mapName }}</h4>
+                <img src="{{ match_info.mapIcon }}" alt="Map Icon" width="150rem">
+            </div>
+
+            <!-- Right Team -->
+            <div class="col-md-5" style="background-color: rgba(227,224,213, 0.9); box-shadow: 3px 3px #444;">
+                {% for player in match_info.teams.1 %}
+                <div class="mb-3" style="border: thick solid; border-color: #e5e3d9 #e5e3d9 #e5e3d9 {{ player.colorHex }}; padding-left: 1em;">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <h5 style="margin: 0;">{{ player.name }} ({{ player.rating }}) - {{ player.civName }}</h5>
+                        <button class="myBtn" onclick="toggleDescription(this)" style="margin-left: 1em;">Civ Info</button>
+                    </div>
+                <div class="civ-description d-none">
+                    <p>{{ player.description|safe }}</p>
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    {% elif output %}
+        <div class="row">
+            <div class="col-md-12 text-start">
+                <p>{{ output|safe }}</p>
+            </div>
+        </div>
+    {% endif %}
+</main>
+{% endblock body %}
