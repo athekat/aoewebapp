@@ -33,7 +33,7 @@ def get_match_info(api_url, civilizations_file, descriptions_url):
             if match_status is None:
                 match_status_message = "Match is being played."
             else:
-                match_status_message = f"Match finished @ {match_status}"
+                match_status_message = "Match finished."
 
             if players and len(players) == 2 and len(players[0]['players']) == 1 and len(players[1]['players']) == 1:
                 player1 = players[0]['players'][0]
@@ -50,6 +50,21 @@ def get_match_info(api_url, civilizations_file, descriptions_url):
 
                 player1_description = civilization_descriptions.get(str(player1_civ_id), "Description not found.")
                 player2_description = civilization_descriptions.get(str(player2_civ_id), "Description not found.")
+                player1won = player1['won']
+                if player1won is True:
+                    player1won = "&#128081;"
+                elif player1won is False:
+                    player1won = "&#128128;"
+                else:
+                    player1won = "&#9203;"
+                player2won = player2['won']
+                if player2won is True:
+                    player2won = "&#128081;"
+                elif player2won is False:
+                    player2won = "&#128128;"
+                else:
+                    player2won = "&#9203;"
+                
                 return {
                     'mapName': map_name,
                     'mapIcon': map_icon,
@@ -58,11 +73,13 @@ def get_match_info(api_url, civilizations_file, descriptions_url):
                     'player1CivName': player1['civName'],
                     'player1CivDescription': player1_description,
                     'player1color': player1['colorHex'],
+                    'player1won': player1won,
                     'player2Name': player2['name'],
                     'player2Rating': player2['rating'],
                     'player2CivName': player2['civName'],
                     'player2CivDescription': player2_description,
                     'player2color': player2['colorHex'],
+                    'player2won': player2won,
                     'match_status': match_status_message,
                 }
             else:

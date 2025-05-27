@@ -37,6 +37,11 @@ def get_match_info(api_url, civ_file, desc_url):
     match = matches[0]
     map_name = match.get('mapName')
     map_icon = match.get('mapImageUrl')
+    match_status = match.get("finished")
+    if match_status is None:
+        match_status_message = "Match is being played."
+    else:
+        match_status_message = "Match finished."
     teams = match.get('teams', [])
 
     if not teams or len(teams) < 2:
@@ -50,6 +55,14 @@ def get_match_info(api_url, civ_file, desc_url):
         players_in_team = []
         for player in team['players']:
             civ_name = player['civName']
+            playerwon = player['won']
+            if playerwon is True:
+                playerwon = "&#128081;"
+            elif playerwon is False:
+                playerwon = "&#128128;"
+            else:
+                playerwon = "&#9203;"
+
             civ_id = civ_ids.get(civ_name)
             civ_description = civ_descriptions.get(str(civ_id), "Description not found.")
             players_in_team.append({
@@ -57,12 +70,14 @@ def get_match_info(api_url, civ_file, desc_url):
                 'rating': player['rating'],
                 'civName': civ_name,
                 'colorHex': player['colorHex'],
-                'description': civ_description
+                'description': civ_description,
+                'won': playerwon
             })
         team_data.append(players_in_team)
 
     return {
         'mapName': map_name,
+        'matchStatus': match_status_message,
         'mapIcon': map_icon,
         'teams': team_data
     }

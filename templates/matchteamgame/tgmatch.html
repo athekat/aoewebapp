@@ -34,6 +34,9 @@
              <div class="col-md-2 text-center">
                 <h4 class="fw-bold mt-3">{{ match_info.mapName }}</h4>
                 <img src="{{ match_info.mapIcon }}" alt="Map Icon" width="150rem">
+                <br>
+                <h5 class= "text-center"> {{ match_info.matchStatus }}</h5>
+                <p>{{ match_info.teams.0.0.won |safe}} | {{ match_info.teams.1.0.won |safe}}</p>
             </div>
 
             <!-- Right Team -->

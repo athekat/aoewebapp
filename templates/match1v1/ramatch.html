@@ -22,20 +22,19 @@
                             <h3>{{ match_info.player1Name }} ({{ match_info.player1Rating }}) - {{ match_info.player1CivName }}</h3>
                         </div>
                         <p class="fs-5">{{ match_info.player1CivDescription | safe }}</p>
-
                     </div>
                     <div class="col-md-2 text-center">
                         <h4 class="mt-3 fw-bold">{{ match_info.mapName }}</h4>
                         <img src="{{ match_info.mapIcon }}" width="150rem" alt="">
                         <br>
                         <h5 class= "text-center"> {{ match_info.match_status }}</h5>
+                        <p class="fs-5">{{ match_info.player1won |safe }} | {{ match_info.player2won | safe }}</p>
                     </div>
                     <div class="col-md-5 text-start" style="background-color: rgba(227,224,213, 0.9); box-shadow: 3px 3px #444444">
                         <div class="mb-3" style="border: thick solid; border-color: #e5e3d9 #e5e3d9 #e5e3d9 {{ match_info.player2color }}; padding-left: 1em;">
                             <h3>{{ match_info.player2Name }} ({{ match_info.player2Rating }}) - {{ match_info.player2CivName }}</h3>
                         </div>
                         <p class="fs-5">{{ match_info.player2CivDescription | safe }}</p>
-
                     </div>
                 </div>
                 {% elif output %}
